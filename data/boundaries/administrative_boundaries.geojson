@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "district_id": "DIST-DHANBAD",
+        "district_name": "Dhanbad",
+        "state": "Jharkhand"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [86.400, 23.600],
+            [86.600, 23.600],
+            [86.600, 23.750],
+            [86.400, 23.750],
+            [86.400, 23.600]
+          ]
+        ]
+      }
+    }
+  ]
+}

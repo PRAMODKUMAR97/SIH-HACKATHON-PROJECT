@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "area_id": "PROT-ZONE-01",
+        "name": "Damodar Reserve Forest & Eco-Sensitive Zone",
+        "category": "RESERVE_FOREST",
+        "protection_level": "STRICT_NO_MINING"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [86.520, 23.640],
+            [86.560, 23.640],
+            [86.560, 23.680],
+            [86.520, 23.680],
+            [86.520, 23.640]
+          ]
+        ]
+      }
+    }
+  ]
+}

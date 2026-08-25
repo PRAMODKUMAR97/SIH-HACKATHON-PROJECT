@@ -1,0 +1,5 @@
+truck_id,license_plate,driver_name,carrier_company,assigned_permit_id,status
+TRK-1001,JH-10-AB-1234,Ramesh Kumar,Mining Logistics Co,PERMIT-101,ACTIVE
+TRK-1002,JH-10-CD-5678,Suresh Singh,FastFreight Express,PERMIT-102,ACTIVE
+TRK-1003,JH-10-EF-9012,Amit Verma,BlackGold Carriers,PERMIT-101,SUSPICIOUS
+TRK-1004,JH-10-GH-3456,Rajesh Sharma,Unregistered Transport,,FLAGGED

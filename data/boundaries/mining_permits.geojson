@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "permit_id": "PERMIT-101",
+        "owner_name": "Bharat Mining Corp",
+        "mineral_type": "Coal",
+        "permitted_volume_m3": 15000.0,
+        "max_depth_m": 25.0,
+        "issue_date": "2024-01-15",
+        "expiry_date": "2029-01-15",
+        "status": "ACTIVE"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [86.440, 23.670],
+            [86.460, 23.670],
+            [86.460, 23.690],
+            [86.440, 23.690],
+            [86.440, 23.670]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "permit_id": "PERMIT-102",
+        "owner_name": "Deccan Minerals Ltd",
+        "mineral_type": "Iron Ore",
+        "permitted_volume_m3": 10000.0,
+        "max_depth_m": 15.0,
+        "issue_date": "2023-06-10",
+        "expiry_date": "2028-06-10",
+        "status": "ACTIVE"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [86.490, 23.710],
+            [86.510, 23.710],
+            [86.510, 23.730],
+            [86.490, 23.730],
+            [86.490, 23.710]
+          ]
+        ]
+      }
+    }
+  ]
+}

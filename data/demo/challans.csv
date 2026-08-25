@@ -1,0 +1,5 @@
+challan_id,truck_id,permit_id,mineral_type,declared_quantity_kg,issue_timestamp,destination
+CH-9001,TRK-1001,PERMIT-101,Coal,10000.0,2026-08-25T09:00:00,Dhanbad Railway Yard
+CH-9002,TRK-1002,PERMIT-102,Iron Ore,15000.0,2026-08-25T10:00:00,Bokaro Steel Hub
+CH-9003,TRK-1003,PERMIT-101,Coal,12000.0,2026-08-25T10:30:00,Unverified Crusher A
+CH-9004,TRK-1004,,Coal,10000.0,2026-08-25T01:15:00,Unknown Private Depot

@@ -1,0 +1,5 @@
+gps_id,truck_id,detection_id,latitude,longitude,speed_kmh,timestamp,route_deviation_km,unusual_stops_count,checkpoint_name,rfid_scan_status
+GPS-001,TRK-1001,KN-0001,23.6810,86.4510,42.5,2026-08-25T10:15:00,0.1,0,Checkpoint 1,CHECKPOINT_VERIFIED
+GPS-002,TRK-1002,KN-0002,23.7210,86.5010,38.0,2026-08-25T11:20:00,0.5,1,Checkpoint 2,CHECKPOINT_VERIFIED
+GPS-003,TRK-1003,KN-0003,23.6990,86.4750,22.0,2026-08-25T12:05:00,3.2,3,Checkpoint 1,GPS_RFID_MISMATCH
+GPS-004,TRK-1004,KN-0004,23.6620,86.5420,15.5,2026-08-25T02:30:00,8.5,5,Checkpoint 3,CHECKPOINT_MISSED

@@ -1,0 +1,5 @@
+detection_id,latitude,longitude,area_ha,estimated_depth_m,estimated_volume_m3,ndvi_change,sar_vv_vh_ratio,texture_variance,spectral_anomaly_score,permit_id,detection_date
+KN-0001,23.6800,86.4500,1.20,4.5,5400.0,-0.12,0.35,0.18,0.22,PERMIT-101,2026-08-01
+KN-0002,23.7200,86.5000,2.10,6.0,12600.0,-0.42,0.62,0.55,0.65,PERMIT-102,2026-08-05
+KN-0003,23.6950,86.4700,3.80,8.5,32300.0,-0.75,0.88,0.82,0.84,PERMIT-101,2026-08-12
+KN-0004,23.6600,86.5400,4.50,11.0,49500.0,-0.91,0.96,0.91,0.96,,2026-08-20
