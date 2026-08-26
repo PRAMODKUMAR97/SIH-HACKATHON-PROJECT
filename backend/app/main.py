@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from backend.app.database import engine, Base, get_db
 from backend.app.services.ingestion_service import seed_database
-from backend.app.api import detections, risk, satellite, permits, trucks, routes
+from backend.app.api import detections, risk, satellite, permits, trucks, routes, exports
 
 # Initialize database tables
 Base.metadata.create_all(bind=engine)
@@ -31,6 +31,7 @@ app.include_router(satellite.router)
 app.include_router(permits.router)
 app.include_router(trucks.router)
 app.include_router(routes.router)
+app.include_router(exports.router)
 
 
 @app.on_event("startup")
