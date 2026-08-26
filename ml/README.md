@@ -1,3 +1,7 @@
-# Future ML module
+# ML baseline
 
-Place labelled candidate features and a scikit-learn Random Forest training script here when moving beyond the deterministic demonstration data.
+`train.py` trains a documented scikit-learn Random Forest from labelled
+raster-derived CSV features; `predict.py` produces mining/non-mining
+probabilities from a feature JSON record. The included labels are only a
+formatting demonstration. Validate with representative regional samples before
+using any result beyond this prototype.

@@ -1,1 +1,94 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KHANAN-NETRA</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="style.css"></head><body><div class="shell"><aside><div class="brand"><span>◉</span><div><b>KHANAN-<em>NETRA</em></b><small>AI Mining Intelligence</small></div></div><p class="demo">● SYNTHETIC DEMO DATA</p><nav><a class="active">⌂ Dashboard</a><a>⌕ Detections</a><a>▥ Historical Trends</a><a>⚠ Alerts <i id="alertBadge"></i></a><a>▣ Reports</a><a>◈ Drone Verification <small>Coming soon</small></a><a>▧ Truck Intelligence <small>Coming soon</small></a></nav><section class="filters"><h3>FILTERS</h3><label>Legality status<select id="status"><option value="ALL">All statuses</option><option value="ILLEGAL">Illegal / suspicious</option><option value="LEGAL">Legal within permit</option><option value="PENDING">Pending review</option></select></label><label>Risk level<select id="risk"><option value="ALL">All levels</option><option>HIGH</option><option>MEDIUM</option><option>LOW</option></select></label><label>Minimum confidence <output id="confOut">50%</output><input id="confidence" type="range" min="0" max="95" value="50"></label><label>Minimum area (ha) <output id="areaOut">0</output><input id="area" type="range" min="0" max="15" value="0"></label><button id="apply">Apply filters</button></section><div class="legend"><h3>MAP LEGEND</h3><p><b class="dot red"></b> High risk</p><p><b class="dot orange"></b> Suspicious</p><p><b class="dot green"></b> Legal permit</p><p><b class="dot yellow"></b> Pending review</p></div></aside><main><header><div><strong>Monitoring period</strong> 27 Jun – 25 Aug 2026 <small>DEMO DATA</small></div><div><button id="kml">⇩ Export KML</button><button id="gpx">⇩ Export GPX</button><button class="primary" id="report">▣ Generate Report</button></div></header><div class="kpis" id="kpis"></div><div class="content"><section class="mapCard"><div id="map"></div><div class="mapTitle">SATELLITE MINING-RISK MAP <small>Demo data · field verification required</small></div></section><aside class="summary"><h3>AI RISK SUMMARY</h3><div class="risk"><span id="riskScore">--</span><small>Overall risk score</small></div><div id="riskBars"></div><h3>LEGality distribution</h3><canvas id="legality"></canvas><h3>DEMO ALERTS</h3><div id="alerts"></div></aside></div><section class="bottom"><div class="chartbox"><h3>MINING ACTIVITY OVER TIME</h3><canvas id="trend"></canvas></div><div class="tablebox"><h3>LATEST DETECTIONS <small>click a row for AI evidence details</small></h3><table><thead><tr><th>ID</th><th>DATE</th><th>LOCATION</th><th>AREA</th><th>PROB.</th><th>STATUS</th><th>RISK</th></tr></thead><tbody id="rows"></tbody></table></div></section></main></div><dialog id="detail"><button class="close" onclick="detail.close()">×</button><div id="detailContent"></div></dialog><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07131c">
+  <title>KHANAN-NETRA | Satellite Mining Intelligence</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">◈</span><div><strong>KHANAN-<em>NETRA</em></strong><small>Satellite Mining Intelligence</small></div></div>
+      <div id="modeBadge" class="data-badge demo">● DEMO DATA</div>
+      <nav aria-label="Workspace navigation">
+        <button class="active" data-scroll="workspace">▣ Monitoring workspace</button>
+        <button data-scroll="cases">▤ Investigation cases</button>
+        <button data-dialog="droneDialog">◒ Drone verification <small>sample survey</small></button>
+        <button data-dialog="truckDialog">⌁ Truck intelligence <small>live demo</small></button>
+        <button data-scroll="alertsSection">⚠ Evidence alerts <i id="alertBadge">0</i></button>
+      </nav>
+      <section class="layer-key">
+        <h2>ANALYSIS LAYERS</h2>
+        <p><span class="key aoi"></span> User / sample AOI</p><p><span class="key detection"></span> Mining-change polygons</p>
+        <p><span class="key permit"></span> Permit boundaries</p><p><span class="key protected"></span> Sensitive-zone boundary</p>
+        <p><span class="key route"></span> Truck route anomaly</p>
+      </section>
+      <section class="honesty">
+        <h2>DATA TRANSPARENCY</h2>
+        <p>Satellite <b id="satelliteLabel">DEMO</b></p><p>Drone <b>SAMPLE</b></p><p>Truck GPS <b>SIMULATED</b></p><p>Permit data <b>DEMO</b></p>
+      </section>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><span class="eyebrow">OPERATIONAL INTELLIGENCE WORKSPACE</span><h1>KHANAN-NETRA</h1></div>
+        <div class="top-meta"><span id="clock"></span><span class="period-chip" id="periodLabel">90-day monitoring</span><button id="demoMode" class="mode-toggle active">Demo mode</button><button id="dataMode" class="mode-toggle">Data mode</button></div>
+      </header>
+
+      <section id="workspace" class="workspace">
+        <div class="commandbar">
+          <form id="searchForm" class="search"><input id="locationSearch" aria-label="Search mining location" placeholder="Search mining location, district, state, or coordinates…" value="Mining Area, Sikkim, India"><button>Search</button></form>
+          <label>Period <select id="period"><option value="30">30 days</option><option value="60">60 days</option><option value="90" selected>90 days</option></select></label>
+          <label>Cloud max <select id="cloudMax"><option value="20">20%</option><option value="30" selected>30%</option><option value="45">45%</option></select></label>
+          <button id="sampleAoi" class="quiet">Use sample AOI</button><button id="analyze" class="action">Run analysis</button>
+        </div>
+        <div id="notice" class="notice">Draw a polygon or rectangle with the controls on the satellite map, then run the 90-day analysis.</div>
+
+        <div class="kpis" id="kpis"></div>
+
+        <div class="monitor-grid">
+          <section class="map-panel panel">
+            <div class="map-title"><b>SATELLITE MONITORING MAP</b><span id="mapStatus">Satellite base layer · DEMO DATA</span></div>
+            <div id="map"></div>
+            <div class="map-actions"><button id="fitAoi">⌖ Focus AOI</button><button id="toggleCompare">⇄ Compare 90 days</button></div>
+            <div class="aoi-readout"><span>AOI AREA <b id="aoiArea">—</b></span><span>CENTER <b id="aoiCenter">—</b></span></div>
+          </section>
+          <aside class="evidence-rail">
+            <section class="panel change-card"><div class="panel-heading"><h2>CHANGE ANALYSIS</h2><span id="changeMode">EARLIEST → LATEST</span></div><div id="changeDetails" class="change-values"><p>Run analysis to compare usable observations.</p></div></section>
+            <section class="panel risk-card"><div class="panel-heading"><h2>AI EVIDENCE FUSION</h2><span>EXPLAINABLE</span></div><div class="risk-score"><b id="riskScore">—</b><small id="riskLevel">Awaiting analysis</small></div><div id="riskBreakdown" class="risk-breakdown"></div><button id="openCase" class="full-action" disabled>Open highest-risk case</button></section>
+            <section class="panel process-card"><div class="panel-heading"><h2>PIPELINE</h2><span id="processPercent">READY</span></div><ol id="pipeline"><li>Draw AOI</li><li>Filter satellite observations</li><li>Generate change / probability polygons</li><li>Compare boundaries and fuse evidence</li></ol></section>
+          </aside>
+        </div>
+
+        <section class="panel timeline-panel">
+          <div class="panel-heading"><div><h2>90-DAY SATELLITE TIME SERIES</h2><span id="timelineStatus">No usable observations loaded</span></div><div><button id="playTimeline">▶ Play</button><button id="pauseTimeline">Ⅱ Pause</button></div></div>
+          <input id="timeline" type="range" min="0" max="0" value="0" disabled>
+          <div id="timelineDates" class="timeline-dates"></div>
+          <div class="comparison"><div><small>EARLIEST OBSERVATION</small><b id="earliestObservation">—</b></div><span>VS</span><div><small>LATEST OBSERVATION</small><b id="latestObservation">—</b></div><p id="selectedObservation">Select a timeline point to inspect an observation.</p></div>
+        </section>
+      </section>
+
+      <section id="cases" class="lower-grid">
+        <article class="panel trends"><div class="panel-heading"><div><h2>MINING FOOTPRINT TREND</h2><span>Usable satellite sample observations</span></div><span class="label-demo">DEMO DATA</span></div><div id="trendChart" class="trend-chart"><p>Run an analysis to load the monitoring trend.</p></div></article>
+        <article class="panel cases-panel"><div class="panel-heading"><div><h2>INVESTIGATION CASES</h2><span>Click a case to open its evidence bundle</span></div><div class="exports"><a href="/api/export/kml">KML</a><a href="/api/export/gpx">GPX</a><a href="/api/export/geojson">GeoJSON</a><a href="/api/export/csv">CSV</a></div></div><div class="table-wrap"><table><thead><tr><th>ID</th><th>LOCATION</th><th>AREA</th><th>PROB.</th><th>CHANGE</th><th>LEGAL SCREEN</th><th>RISK</th><th>ACTION</th></tr></thead><tbody id="caseRows"></tbody></table></div></article>
+      </section>
+
+      <section id="alertsSection" class="panel alerts-panel"><div class="panel-heading"><div><h2>EVIDENCE ALERTS</h2><span>Prioritisation alerts, not legal determinations</span></div></div><div id="alerts" class="alerts"></div></section>
+    </main>
+  </div>
+
+  <dialog id="caseDialog" class="modal case-modal"><button class="modal-close" data-close="caseDialog">×</button><div id="caseContent"></div></dialog>
+  <dialog id="droneDialog" class="modal wide-modal"><button class="modal-close" data-close="droneDialog">×</button><div class="modal-title"><div><span class="eyebrow">SAMPLE MODE</span><h2>Drone 3D Verification</h2><p>Bundled 3D terrain is a <b>DEMO 3D SURVEY</b>; it was not generated from a live upload.</p></div><span class="data-badge demo">SAMPLE / DEMO DATA</span></div><div class="drone-grid"><div id="droneViewer" class="drone-viewer"><div class="viewer-placeholder">Opening sample 3D survey…</div></div><div id="droneMetrics" class="drone-metrics"></div></div><form id="droneUpload" class="upload-row"><label>Upload JPG / PNG / TIFF sample photo <input id="droneFile" type="file" accept=".jpg,.jpeg,.png,.tif,.tiff"></label><button>Store for review</button><span id="uploadStatus"></span></form></dialog>
+  <dialog id="truckDialog" class="modal wide-modal"><button class="modal-close" data-close="truckDialog">×</button><div class="modal-title"><div><span class="eyebrow">SIMULATED TRANSPORT EVIDENCE</span><h2>Truck Intelligence</h2><p>Route, RFID, e-Challan, and weighbridge records are local demonstration fixtures.</p></div><span class="data-badge demo">SIMULATED</span></div><div class="truck-grid"><div id="truckMap"></div><div id="truckDetails" class="truck-details"></div></div></dialog>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+  <script src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"permit_id": "DEMO-PERMIT-17", "operator": "Sikkim Demo Minerals Ltd.", "mineral": "Construction aggregate", "status": "DEMO / not official", "valid_from": "2024-04-01", "valid_to": "2027-03-31", "permitted_area": 8.7, "permitted_volume": 15000, "data_status": "DEMO DATA"},
+      "geometry": {"type": "Polygon", "coordinates": [[[88.5300,27.1970],[88.5455,27.1970],[88.5455,27.2090],[88.5300,27.2090],[88.5300,27.1970]]]}
+    }
+  ]
+}

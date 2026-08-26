@@ -1,0 +1,10 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"zone_id": "DEMO-PROTECTED-2", "name": "Demo forest-sensitive zone", "status": "DEMO / not official", "data_status": "DEMO DATA"},
+      "geometry": {"type": "Polygon", "coordinates": [[[88.5480,27.2070],[88.5600,27.2070],[88.5600,27.2170],[88.5480,27.2170],[88.5480,27.2070]]]}
+    }
+  ]
+}
